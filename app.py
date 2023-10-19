@@ -5,7 +5,6 @@ import json
 import FinanceDataReader as fdr
 from datetime import datetime, timedelta
 from flask_cors import CORS
-import ssl
 
 app = Flask(__name__)
 CORS(app)
@@ -75,4 +74,4 @@ def get_stock_data():
         return jsonify({"error": str(e)}), 800
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=4000, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=False)

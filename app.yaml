@@ -24,7 +24,7 @@ spec:
                 - ng-1      
       containers:
       - name: jootopia-crawling-app
-        image: 686710509719.dkr.ecr.ap-northeast-2.amazonaws.com/team-1:20231018222746 #
+        image: 686710509719.dkr.ecr.ap-northeast-2.amazonaws.com/team-1:20231019221307 #
         imagePullPolicy: IfNotPresent
         resources:
           requests:
