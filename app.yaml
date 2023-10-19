@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jootopia-crawling-app
+  namespace: team-1
+spec:
+  replicas: 1 #pod 몇개 띄울건가
+  selector:
+    matchLabels:
+      app: jootopia-crawling-app
+  template:
+    metadata:
+      labels:
+        app: jootopia-crawling-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: alpha.eksctl.io/nodegroup-name
+                operator: In
+                values:
+                - ng-1      
+      containers:
+      - name: jootopia-crawling-app
+        image: 686710509719.dkr.ecr.ap-northeast-2.amazonaws.com/team-1:20231018222746 #
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+        ports:
+        - containerPort: 5000
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: jootopia-crawling-service
+  namespace: team-1
+spec:
+  type: NodePort
+  selector:
+    app: jootopia-crawling-app
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000

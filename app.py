@@ -4,8 +4,11 @@ import requests
 import json
 import FinanceDataReader as fdr
 from datetime import datetime, timedelta
+from flask_cors import CORS
+import ssl
 
 app = Flask(__name__)
+CORS(app)
 
 def scrape_financial_statements_data(code):
     URL = f"https://finance.naver.com/item/main.nhn?code={code}"
@@ -72,4 +75,4 @@ def get_stock_data():
         return jsonify({"error": str(e)}), 800
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5500, debug=False)
+    app.run(host='127.0.0.1', port=4000, debug=False)
